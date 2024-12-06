@@ -1,0 +1,49 @@
+name: PuntingFormV2 CI
+
+on:
+  push:
+    branches: [ features/database-refactor-deployment ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    env:
+      PFv2_APP_PATH: ./Pfv2.Applications/Pfv2.Applications.PfWeb/
+      OUTPUT_PATH: ./dbrefactor.puntingform.com.au
+      BUILD_MODE: Release
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build ${{env.PFv2_APP_PATH}} --configuration ${{env.BUILD_MODE}} --no-restore
+
+    # There are no tests on PfWeb at the moment
+    # Temperary disable this step
+    # - name: Test
+      # run: dotnet test --no-build --verbosity normal
+
+    - name: Publish
+      run: dotnet publish ${{env.PFv2_APP_PATH}} --configuration ${{env.BUILD_MODE}} --no-restore --output ${{env.OUTPUT_PATH}}
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+       name: pfv2-web-artifact
+       path: ${{env.OUTPUT_PATH}}
+
+    - name: IIS Deploy
+      uses: ChristopheLav/iis-deploy@v1.0.0
+      with:
+        website-name: 'dbrefactor.puntingform.com.au'
+        msdeploy-service-url: ${{ secrets.MSDEPLOY_URL }}
+        msdeploy-username: ${{ secrets.MSDEPLOY_USERNAME }}
+        msdeploy-password: ${{ secrets.MSDEPLOY_PASSWORD }}
+        source-path: ${{env.OUTPUT_PATH}}
