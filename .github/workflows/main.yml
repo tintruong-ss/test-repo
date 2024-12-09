@@ -1,4 +1,4 @@
-name: PuntingFormV2 CI
+name: PuntingFormV2 CI 2
 
 on:
   push:
