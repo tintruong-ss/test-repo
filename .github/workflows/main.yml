@@ -8,8 +8,8 @@ jobs:
   build:
     runs-on: self-hosted
     env:
-      PFv2_APP_PATH: ./
-      OUTPUT_PATH: ./dbrefactor.puntingform.com.au
+      PFv2_APP_PATH: .\
+      OUTPUT_PATH: .\dbrefactor.puntingform.com.au
       BUILD_MODE: Release
     steps:
     - uses: actions/checkout@v2
