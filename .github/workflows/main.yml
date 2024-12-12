@@ -40,6 +40,7 @@ jobs:
        path: ${{env.OUTPUT_PATH}}
 
     - name: IIS Deploy
+      shell: cmd
       uses: ChristopheLav/iis-deploy@v1.0.0
       with:
         website-name: 'dbrefactor-test.puntingform.com.au'
