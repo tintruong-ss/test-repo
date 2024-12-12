@@ -6,9 +6,9 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: self-hosted
     env:
-      PFv2_APP_PATH: ./Pfv2.Applications/Pfv2.Applications.PfWeb/
+      PFv2_APP_PATH: ./
       OUTPUT_PATH: ./dbrefactor.puntingform.com.au
       BUILD_MODE: Release
     steps:
@@ -39,11 +39,11 @@ jobs:
        name: pfv2-web-artifact
        path: ${{env.OUTPUT_PATH}}
 
-    - name: IIS Deploy
-      uses: ChristopheLav/iis-deploy@v1.0.0
-      with:
-        website-name: 'dbrefactor.puntingform.com.au'
-        msdeploy-service-url: ${{ secrets.MSDEPLOY_URL }}
-        msdeploy-username: ${{ secrets.MSDEPLOY_USERNAME }}
-        msdeploy-password: ${{ secrets.MSDEPLOY_PASSWORD }}
-        source-path: ${{env.OUTPUT_PATH}}
+    # - name: IIS Deploy
+    #   uses: ChristopheLav/iis-deploy@v1.0.0
+    #   with:
+    #     website-name: 'dbrefactor.puntingform.com.au'
+    #     msdeploy-service-url: ${{ secrets.MSDEPLOY_URL }}
+    #     msdeploy-username: ${{ secrets.MSDEPLOY_USERNAME }}
+    #     msdeploy-password: ${{ secrets.MSDEPLOY_PASSWORD }}
+    #     source-path: ${{env.OUTPUT_PATH}}
