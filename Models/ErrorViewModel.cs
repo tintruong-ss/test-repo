@@ -1,4 +1,4 @@
-namespace test_repo.Models;
+namespace test.Models;
 
 public class ErrorViewModel
 {

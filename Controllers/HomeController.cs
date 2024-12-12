@@ -1,8 +1,8 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using test_repo.Models;
+using test.Models;
 
-namespace test_repo.Controllers;
+namespace test.Controllers;
 
 public class HomeController : Controller
 {
