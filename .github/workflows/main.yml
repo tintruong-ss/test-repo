@@ -39,11 +39,11 @@ jobs:
        name: pfv2-web-artifact
        path: ${{env.OUTPUT_PATH}}
 
-    # - name: IIS Deploy
-    #   uses: ChristopheLav/iis-deploy@v1.0.0
-    #   with:
-    #     website-name: 'dbrefactor.puntingform.com.au'
-    #     msdeploy-service-url: ${{ secrets.MSDEPLOY_URL }}
-    #     msdeploy-username: ${{ secrets.MSDEPLOY_USERNAME }}
-    #     msdeploy-password: ${{ secrets.MSDEPLOY_PASSWORD }}
-    #     source-path: ${{env.OUTPUT_PATH}}
+    - name: IIS Deploy
+      uses: ChristopheLav/iis-deploy@v1.0.0
+      with:
+        website-name: 'dbrefactor.puntingform.com.au'
+        msdeploy-service-url: ${{ secrets.MSDEPLOY_URL }}
+        msdeploy-username: ${{ secrets.MSDEPLOY_USERNAME }}
+        msdeploy-password: ${{ secrets.MSDEPLOY_PASSWORD }}
+        source-path: ${{env.OUTPUT_PATH}}
