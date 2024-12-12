@@ -9,8 +9,9 @@ jobs:
     runs-on: self-hosted
     env:
       PFv2_APP_PATH: .\
-      OUTPUT_PATH: .\dbrefactor.puntingform.com.au
       BUILD_MODE: Release
+      OUTPUT_PATH: .\dbrefactor-test.puntingform.com.au
+      WEBSITE_PATH: C:\Websites\dbrefactor-test.puntingform.com.au
     steps:
     - uses: actions/checkout@v2
 
@@ -39,12 +40,17 @@ jobs:
        name: pfv2-web-artifact
        path: ${{env.OUTPUT_PATH}}
 
-    - name: IIS Deploy
-      uses: ChristopheLav/iis-deploy@v1.0.0
-      with:
-        website-name: 'dbrefactor-test.puntingform.com.au'
-        msdeploy-service-url: ${{ secrets.MSDEPLOY_URL }}
-        msdeploy-username: ${{ secrets.MSDEPLOY_USERNAME }}
-        msdeploy-password: ${{ secrets.MSDEPLOY_PASSWORD }}
-        source-path: ${{ github.workspace }}${{env.OUTPUT_PATH}}
-        skip-extra-files: false
+    # - name: IIS Deploy
+    #   uses: ChristopheLav/iis-deploy@v1.0.0
+    #   with:
+    #     website-name: 'dbrefactor-test.puntingform.com.au'
+    #     msdeploy-service-url: ${{ secrets.MSDEPLOY_URL }}
+    #     msdeploy-username: ${{ secrets.MSDEPLOY_USERNAME }}
+    #     msdeploy-password: ${{ secrets.MSDEPLOY_PASSWORD }}
+    #     source-path: ${{ github.workspace }}${{env.OUTPUT_PATH}}
+    #     skip-extra-files: false
+
+    - name: Copy files to website
+      run: Copy-Item -Recurse ${{ github.workspace }}${{env.OUTPUT_PATH}}\* ${{env.WEBSITE_PATH}}
+
+
